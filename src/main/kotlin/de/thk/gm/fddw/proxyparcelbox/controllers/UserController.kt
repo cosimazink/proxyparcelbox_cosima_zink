@@ -1,5 +1,6 @@
 package de.thk.gm.fddw.todolist.controllers
 
+/*
 import de.thk.gm.fddw.todolist.models.User
 import de.thk.gm.fddw.todolist.dtos.UserDTO
 import org.springframework.amqp.rabbit.core.RabbitTemplate
@@ -19,4 +20,4 @@ class UsersController(
         return "redirect:/"
     }
 
-}
+}*/
