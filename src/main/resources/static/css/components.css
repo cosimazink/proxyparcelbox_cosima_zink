@@ -1,0 +1,38 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+
+    a {
+        color: var(--color-black);
+        text-decoration: none;
+    }
+    ul {
+        display: flex;
+        li{
+            margin-right: var(--s);
+        }
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 300px; /* Breite der Eingabefelder */
+    height: 40px; /* Höhe der Eingabefelder */
+    margin-bottom: 10px; /* Abstand zwischen den Eingabefeldern */
+}
+
+button {
+    background-color: cornflowerblue; /* Hintergrundfarbe des Buttons */
+    color: white; /* Textfarbe des Buttons */
+    padding: 10px 20px; /* Innenabstand des Buttons */
+    border: none; /* Kein Rand um den Button */
+    cursor: pointer; /* Cursor wird zum Zeiger, wenn er über dem Button ist */
+}
+
+button:hover {
+    background-color: steelblue; /* Hintergrundfarbe des Buttons beim Überfahren mit der Maus */
+}
