@@ -6,7 +6,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class ChatServiceImpl (private val chatsRepository: ChatsRepository) : ChatService {
+class ChatsServiceImpl (private val chatsRepository: ChatsRepository) : ChatsService {
     override fun findById(id: String): Chat? {
         return chatsRepository.findByIdOrNull(id)
     }
@@ -19,11 +19,11 @@ class ChatServiceImpl (private val chatsRepository: ChatsRepository) : ChatServi
         return chatsRepository.findByEmail(email)
     }
 
-    override fun save(chats: Chat) {
-        chatsRepository.save(chats)
+    override fun save(chat: Chat) {
+        chatsRepository.save(chat)
     }
 
-    override fun delete(chats: Chat) {
-        chatsRepository.delete(chats)
+    override fun delete(chat: Chat) {
+        chatsRepository.delete(chat)
     }
 }

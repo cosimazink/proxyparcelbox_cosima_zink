@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ChatsRepository : CrudRepository<Chat, String> {
     fun findByEmail(email: String): Chat?
+    fun findByTrackingNumber(trackingNumber : String): Chat?
 }

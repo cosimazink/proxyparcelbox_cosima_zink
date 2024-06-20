@@ -20,19 +20,19 @@ body {
 }
 
 input[type="text"] {
-    width: 300px; /* Breite der Eingabefelder */
-    height: 40px; /* Höhe der Eingabefelder */
-    margin-bottom: 10px; /* Abstand zwischen den Eingabefeldern */
+    width: 300px;
+    height: 40px;
+    margin-bottom: 10px;
 }
 
 button {
-    background-color: cornflowerblue; /* Hintergrundfarbe des Buttons */
-    color: white; /* Textfarbe des Buttons */
-    padding: 10px 20px; /* Innenabstand des Buttons */
-    border: none; /* Kein Rand um den Button */
-    cursor: pointer; /* Cursor wird zum Zeiger, wenn er über dem Button ist */
+    background-color: cornflowerblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: steelblue; /* Hintergrundfarbe des Buttons beim Überfahren mit der Maus */
+    background-color: steelblue;
 }
