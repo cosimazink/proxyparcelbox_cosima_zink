@@ -20,6 +20,5 @@ services:
       - SPRING_PROFILES_ACTIVE=prod
     depends_on:
       - postgres
-      - rabbitmq
     ports:
       - "8080:8080"
