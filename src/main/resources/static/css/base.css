@@ -15,9 +15,13 @@ header {
 }
 
 footer {
-    max-width: 80rem;
-    margin: 0 auto;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     background-color: var(--color-dark);
+    color: white;
+    padding: 10px 0;
 }
 
 main{
