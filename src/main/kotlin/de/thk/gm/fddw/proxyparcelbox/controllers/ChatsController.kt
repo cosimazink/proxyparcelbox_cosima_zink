@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 @Controller
 class ChatsController(
@@ -27,14 +27,25 @@ class ChatsController(
     }
 
     @GetMapping("/chats/{id}")
-    fun getChatById (@PathVariable("id") tarckingNumber: String, model: Model): String {
-        val chat: Chat? = chatsService.findById(tarckingNumber)
+    fun getChatById(@PathVariable("id") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
+        /*val existingChat = chatsService.findById(chatRequest.trackingNumber)
+        if (existingChat != null) {
+            //model.addAttribute("error", "Ein Chat mit dieser Sendungsnummer existiert bereits.")
+            return "chats/errorChat"
+        }*/
+        val chat: Chat? = chatsService.findById(trackingNumber)
         model.addAttribute("chat", chat)
         return "chats/showChat"
     }
 
     @PostMapping("/chats")
-    fun createChat(@ModelAttribute chatRequest: ChatRequest) : String {
+    fun createChat(@ModelAttribute chatRequest: ChatRequest, model: Model) : String {
+        /*val existingChat = chatsService.findById(chatRequest.trackingNumber)
+        if (existingChat != null) {
+            //model.addAttribute("error", "Ein Chat mit dieser Sendungsnummer existiert bereits.")
+            return "chats/errorChat"
+        }*/
+
         val chat = Chat(chatRequest.trackingNumber)
         chat.email = chatRequest.email
 
