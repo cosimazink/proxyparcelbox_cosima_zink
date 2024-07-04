@@ -1,46 +1,32 @@
-// Get the elements
-var sendMessageButton = document.querySelector('.chatBoxFooter button.message');
-var userMessageInput = document.querySelector('.chatBoxFooter input[name="message"]');
-var messagesDiv = document.querySelector('.chatBox');
+const ws = new WebSocket("/chat");
+const echo = document.querySelector('.chat-container');
+ws.onmessage = function (message) {
+    console.log("message: " + message.data)
+    echo.innerHTML += '<div class="received">' +
+        '<p>' + message.data + '</p>' +
+        '<span class="timestamp">' + getTimestamp() + '</span>' +
+        '</div>';
+}
 
-// Listen for the 'click' event on the send button
-sendMessageButton.addEventListener('click', function() {
-    // Get the user's message
-    var userMessage = userMessageInput.value.trim();
+function sendMessage() {
+    const input = document.querySelector('input[name="message"]');
+    const messageText = input.value;
 
-    // Check if the message is not empty
-    if (userMessage) {
-        // Create a new 'div' element for the message
-        var messageDiv = document.createElement('div');
-        messageDiv.classList.add('sent'); // Add the 'sent' class to the div
+    const messageHtml = '<div class="sent">' +
+        '<p>' + messageText + '</p>' +
+        '<span class="timestamp">' + getTimestamp() + '</span>' +
+        '</div>';
 
-        // Create a new 'p' element for the message text
-        var messageText = document.createElement('p');
-        messageText.textContent = userMessage; // Set the text
+    const chatContainer = document.querySelector('.chat-container');
+    chatContainer.innerHTML += messageHtml;
 
-        // Append the message text to the message div
-        messageDiv.appendChild(messageText);
+    ws.send(messageText);
 
-        // Create a new 'span' element for the timestamp
-        var timestampSpan = document.createElement('span');
-        timestampSpan.classList.add('timestamp'); // Add the 'timestamp' class to the span
+    input.value = '';
+}
 
-        // Get the current time
-        var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
-
-        // Set the timestamp text
-        timestampSpan.textContent = formattedTime;
-
-        // Append the timestamp to the message div
-        messageDiv.appendChild(timestampSpan);
-
-        // Append the message div to the messages div
-        messagesDiv.appendChild(messageDiv);
-
-        // Clear the input box
-        userMessageInput.value = '';
-    }
-});
+function getTimestamp() {
+    //get date chat gpt
+    const currentTime = new Date();
+    return currentTime.getHours() + ':' + currentTime.getMinutes().toString().padStart(2, '0');
+}

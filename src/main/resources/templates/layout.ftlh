@@ -36,6 +36,6 @@
     </footer>
 
     </body>
-
+    <script src="/javascript/sendMessage.js"></script>
     </html>
 </#macro>
