@@ -23,7 +23,7 @@ class EmailsController (val chatsService: ChatsService, val emailService: EmailS
         return "redirect:/emails/sendemailform"
     }
 
-    @GetMapping("/demo/testparcelservice/{trackingNumber}")
+    @GetMapping("/emails/testparcelservice/{trackingNumber}")
     @ResponseBody
     fun testParcelService(@PathVariable trackingNumber : String) : String {
         return parcelService.getEmailByTrackingNumber(trackingNumber)
