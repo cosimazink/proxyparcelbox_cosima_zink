@@ -5,19 +5,20 @@ import de.thk.gm.fddw.proxyparcelbox.models.Chat
 import de.thk.gm.fddw.proxyparcelbox.models.Message
 import de.thk.gm.fddw.proxyparcelbox.services.ChatsService
 import de.thk.gm.fddw.proxyparcelbox.services.MessagesService
+import de.thk.gm.fddw.proxyparcelbox.services.MessagesServiceImpl
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.ModelAttribute
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
-import java.util.*
 
 @Controller
 class ChatsController(
     private val chatsRestController: ChatsRestController,
     private val chatsService: ChatsService,
-    private val messagesService: MessagesService
+    private val messagesService: MessagesService,
+    private val messagesServiceImpl: MessagesServiceImpl
 ) {
 
     data class ChatRequest(
@@ -26,24 +27,19 @@ class ChatsController(
     )
 
     @GetMapping("/")
-        fun getIndex(model: Model): String {
-            return "index"
+    fun getIndex(model: Model): String {
+        return "index"
     }
 
     @GetMapping("/chats/{id}")
-    fun getChatById(@PathVariable("id") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
-        /*val existingChat = chatsService.findById(chatRequest.trackingNumber)
-        if (existingChat != null) {
-            //model.addAttribute("error", "Ein Chat mit dieser Sendungsnummer existiert bereits.")
-            return "chats/errorChat"
-        }*/
+    fun getChatQR(@PathVariable("id") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
         val chat: Chat? = chatsService.findById(trackingNumber)
         model.addAttribute("chat", chat)
         return "chats/showChat"
     }
 
-    @GetMapping("/messages/{id}")
-    fun getMessagesById(@PathVariable("id") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
+    @GetMapping("/messages/{trackingnumber}")
+    fun getChatByTrackingNumber(@PathVariable("trackingnumber") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
         val chat: Chat? = chatsService.findById(trackingNumber)
         model.addAttribute("chat", chat)
 
@@ -52,14 +48,20 @@ class ChatsController(
         return "chats/showMessages"
     }
 
+    @PostMapping("/messages/{trackingNumber}")
+    fun saveMessages(@PathVariable("trackingNumber") trackingNumber: String, @RequestBody message: Message): ResponseEntity<Message> {
+        val chat = chatsService.findById(trackingNumber)
+        return if (chat == null) {
+            throw ResponseStatusException(HttpStatus.NOT_FOUND);
+        } else {
+            message.chat = chat
+            messagesServiceImpl.createAndSaveMessage(trackingNumber, message.sender, message.text)
+            ResponseEntity.ok().build()
+        }
+    }
+
     @PostMapping("/chats")
     fun createChat(@ModelAttribute chatRequest: ChatRequest, model: Model) : String {
-        /*val existingChat = chatsService.findById(chatRequest.trackingNumber)
-        if (existingChat != null) {
-            //model.addAttribute("error", "Ein Chat mit dieser Sendungsnummer existiert bereits.")
-            return "chats/errorChat"
-        }*/
-
         val chat = Chat(chatRequest.trackingNumber)
         chat.email = chatRequest.email
 

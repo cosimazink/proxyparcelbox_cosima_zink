@@ -6,6 +6,6 @@ import java.util.*
 
 @Service
 interface MessagesService {
-    fun findByChatRoom(chatId: String): List<Message>
+    fun findByChatRoom(chat: String): List<Message>
     fun save(message: Message): Message
 }

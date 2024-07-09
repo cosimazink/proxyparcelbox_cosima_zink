@@ -7,5 +7,5 @@ import java.util.*
 
 @Repository
 interface MessagesRepository : CrudRepository<Message, UUID> {
-    fun findByChatId(chatId: String): List<Message>
+    fun findByChatId(chat: String): List<Message>
 }

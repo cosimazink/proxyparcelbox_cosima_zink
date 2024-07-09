@@ -8,6 +8,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler
 import de.thk.gm.fddw.proxyparcelbox.models.Message
 import de.thk.gm.fddw.proxyparcelbox.services.ChatsService
 import de.thk.gm.fddw.proxyparcelbox.services.MessagesService
+import org.json.JSONObject
+import org.springframework.web.util.UriComponents
+import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -23,6 +26,7 @@ class ChatHandler(val chatsService: ChatsService, val messagesService: MessagesS
         chatMessage.text = message.payload
         chatMessage.createdAt = Date()
         chatMessage.sender = session.id
+        messagesService.save(chatMessage)
 
         for (chatSession in sessions) {
             if (chatSession.id != session.id) {
@@ -39,3 +43,4 @@ class ChatHandler(val chatsService: ChatsService, val messagesService: MessagesS
         }
     }
 }
+

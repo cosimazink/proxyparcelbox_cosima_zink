@@ -14,7 +14,9 @@
         <h2>Chat Sendungsnummer: ${chat.id}</h2>
         <button>Chat abonnieren</button>
     </div>
-    <div class="chat-container"></div>
+    <div class="chat-container">
+        <div id="messages-container"></div>
+    </div>
     <div class="chatBoxFooter">
         <input type="text" name="message" placeholder="Nachricht...">
         <button class="message" type="button" onclick="sendMessage()">

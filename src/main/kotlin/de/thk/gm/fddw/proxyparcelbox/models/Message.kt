@@ -15,7 +15,7 @@ class Message () {
     var sender: String = ""
     var text: String = ""
 
-@ManyToOne
-@JoinColumn(name = "chat_id", nullable = false)
-lateinit var chat: Chat
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "chat_id")
+    var chat: Chat? = null
 }

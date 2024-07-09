@@ -41,10 +41,12 @@ form {
     gap: 10px;
     align-items: center;
     border-bottom: 1px solid #ccc;
+    justify-content: space-between;
 }
 
 .chatAbo button {
     height: 35px;
+    margin-left: auto;
 }
 
 .received, .sent {

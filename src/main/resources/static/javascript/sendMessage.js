@@ -30,3 +30,27 @@ function getTimestamp() {
     const currentTime = new Date();
     return currentTime.getHours() + ':' + currentTime.getMinutes().toString().padStart(2, '0');
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlSegments = window.location.pathname.split('/');
+    const trackingnumber = urlSegments[urlSegments.length - 1]; // Chat-ID ist das letzte Segment der URL
+
+    fetch(`/messages/${trackingnumber}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(messages => {
+            const messagesContainer = document.getElementById('messages-container');
+            messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = message.text;
+                messagesContainer.appendChild(messageElement);
+            });
+        })
+        .catch(error => console.error('Fehler beim Abrufen der Nachrichten:', error));
+});
