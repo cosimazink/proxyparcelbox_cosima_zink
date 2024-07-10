@@ -9,18 +9,16 @@ import org.springframework.stereotype.Service
 @Service
 class MessagesServiceImpl (private val messagesRepository: MessagesRepository, private val chatsRepository: ChatsRepository) : MessagesService{
 
-    override fun findByChatRoom(chat: String): List<Message> = messagesRepository.findByChatId(chat)
-
     override fun save(message: Message): Message = messagesRepository.save(message)
 
-    override fun getMessagesByChatRoom(chat: String): List<Message> {
-        val messages = messagesRepository.findByChatId(chat)
+    override fun getMessagesByChatRoom(chat: Chat): List<Message> {
+        val messages = messagesRepository.findByChat(chat)
         return messages
     }
 
-    fun createAndSaveMessage(trackingNumber: String, sender: String, text: String) {
+    fun createAndSaveMessage(id: String, sender: String, text: String) {
 
-        val chat = chatsRepository.findByTrackingNumber(trackingNumber)
+        val chat = chatsRepository.findByTrackingnumber(id)
         val message = Message()
         message.chat = chat
         message.sender = sender

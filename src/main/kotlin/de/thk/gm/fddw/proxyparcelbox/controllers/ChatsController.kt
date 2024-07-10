@@ -44,24 +44,24 @@ class ChatsController(
         model.addAttribute("chat", chat)
 
         if(chat == null) throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        val messages = messagesService.findByChatRoom(chat.trackingNumber)
+        val messages = messagesService.getMessagesByChatRoom(chat)
         model.addAttribute("messages", messages)
         return "chats/showMessages"
     }
 
     @GetMapping("/messages/{trackingnumber}/chat")
     @ResponseBody
-    fun getChatMessages(@PathVariable("trackingNumber") trackingNumber: String): List<Message> {
+    fun getChatMessages(@PathVariable("trackingnumber") trackingNumber: String): List<Message> {
         val chat : Chat? = chatsService.findById(trackingNumber)
         return if (chat != null) {
-            messagesService.getMessagesByChatRoom(chat.id)
+            messagesService.getMessagesByChatRoom(chat)
         } else {
             emptyList()
         }
     }
 
-    @PostMapping("/messages/{trackingNumber}")
-    fun saveMessages(@PathVariable("trackingNumber") trackingNumber: String, @RequestBody message: Message): ResponseEntity<Message> {
+    @PostMapping("/messages/{trackingnumber}")
+    fun saveMessages(@PathVariable("trackingnumber") trackingNumber: String, @RequestBody message: Message): ResponseEntity<Message> {
         val chat = chatsService.findById(trackingNumber)
         return if (chat == null) {
             throw ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -79,7 +79,7 @@ class ChatsController(
 
         chatsRestController.saveChat(chat)
 
-        return "redirect:/chats/${chat.trackingNumber}"
+        return "redirect:/chats/${chat.id}"
     }
 
 }
