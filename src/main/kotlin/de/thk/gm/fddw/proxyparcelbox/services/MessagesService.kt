@@ -8,4 +8,5 @@ import java.util.*
 interface MessagesService {
     fun findByChatRoom(chat: String): List<Message>
     fun save(message: Message): Message
+    fun getMessagesByChatRoom(chat: String): List<Message>
 }

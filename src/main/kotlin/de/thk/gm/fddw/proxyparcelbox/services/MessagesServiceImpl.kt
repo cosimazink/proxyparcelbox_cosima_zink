@@ -13,6 +13,11 @@ class MessagesServiceImpl (private val messagesRepository: MessagesRepository, p
 
     override fun save(message: Message): Message = messagesRepository.save(message)
 
+    override fun getMessagesByChatRoom(chat: String): List<Message> {
+        val messages = messagesRepository.findByChatId(chat)
+        return messages
+    }
+
     fun createAndSaveMessage(trackingNumber: String, sender: String, text: String) {
 
         val chat = chatsRepository.findByTrackingNumber(trackingNumber)

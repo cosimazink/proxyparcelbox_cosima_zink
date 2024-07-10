@@ -1,5 +1,35 @@
 const ws = new WebSocket("/chat");
 const echo = document.querySelector('.chat-container');
+
+fetch('/messages/' + document.getElementById('trackingNumber').textContent.split(': ')[1] + '/chat')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(messages => {
+        for (let message of messages) {
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add(message.sender === 'User' ? 'sent' : 'received');
+
+            let messageText = document.createElement('p');
+            messageText.textContent = message.text;
+            messageDiv.appendChild(messageText);
+
+            let timestampSpan = document.createElement('span');
+            timestampSpan.classList.add('timestamp');
+            let date = new Date(message.createdAt);
+            timestampSpan.textContent = date.toLocaleDateString('de-DE', {year: 'numeric', month: '2-digit', day: '2-digit'}) + ', ' + date.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+            messageDiv.appendChild(timestampSpan);
+
+            echo.appendChild(messageDiv);
+        }
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+
 ws.onmessage = function (message) {
     console.log("message: " + message.data)
     echo.innerHTML += '<div class="received">' +
@@ -7,6 +37,7 @@ ws.onmessage = function (message) {
         '<span class="timestamp">' + getTimestamp() + '</span>' +
         '</div>';
 }
+
 
 function sendMessage() {
     const input = document.querySelector('input[name="message"]');
@@ -33,12 +64,13 @@ function getTimestamp() {
 
 
 
+/*
 document.addEventListener('DOMContentLoaded', function() {
     const urlSegments = window.location.pathname.split('/');
-    const trackingnumber = urlSegments[urlSegments.length - 1]; // Chat-ID ist das letzte Segment der URL
+    const trackingNumber = urlSegments[urlSegments.length - 1]; // Chat-ID ist das letzte Segment der URL
 
-    fetch(`/messages/${trackingnumber}`, {
-        method: 'POST',
+    fetch(`/messages/${trackingNumber}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
@@ -48,9 +80,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const messagesContainer = document.getElementById('messages-container');
             messages.forEach(message => {
                 const messageElement = document.createElement('div');
-                messageElement.textContent = message.text;
+                messageElement.classList.add('message'); // Fügen Sie hier zusätzliche Klassen hinzu, um das Styling zu unterstützen
+                messageElement.innerHTML = `
+                <p>${message.text}</p>
+                <span class="timestamp">${new Date(message.createdAt).toLocaleTimeString()}</span>
+            `;
                 messagesContainer.appendChild(messageElement);
             });
         })
         .catch(error => console.error('Fehler beim Abrufen der Nachrichten:', error));
-});
+});*/
