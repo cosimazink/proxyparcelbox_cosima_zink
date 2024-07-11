@@ -11,7 +11,7 @@
 <@layout.layout>
     <body>
     <div class="chatAbo">
-        <h2 id="id">Chat Sendungsnummer: ${chat.id}</h2>
+        <h2 class="stingTrackingnumber" id="id">Chat Sendungsnummer: ${chat.id}</h2>
         <button>Chat abonnieren</button>
     </div>
     <div class="chat-container">

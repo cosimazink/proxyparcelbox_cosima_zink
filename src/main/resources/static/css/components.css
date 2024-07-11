@@ -66,12 +66,15 @@ form {
 .received {
     background-color: #e0e0e0;
     margin: var(--m);
+    border-bottom-left-radius: 0;
 }
 
 .sent {
-    background-color: cornflowerblue;
+    color: white;
+    background-color: #0e3557;
     align-self: flex-end;
     margin: var(--m);
+    border-bottom-right-radius: 0;
 }
 
 .received::before, .sent::before {
@@ -83,17 +86,11 @@ form {
 }
 
 .received::before {
-    left: -7px;
-    top: 50%;
-    border-right-color: #e0e0e0;
-    border-left: 0;
+
 }
 
 .sent::before {
-    right: -7px;
-    top: 50%;
-    border-left-color: cornflowerblue;
-    border-right: 0;
+
 }
 
 .received::after, .sent::after {
@@ -115,7 +112,7 @@ form {
 
 .sent::after {
     right: 100%;
-    border-right-color: #007bff;
+    border-right-color: #0e3557;
     border-top: 0;
     border-bottom: 0;
     margin-top: -5px;
@@ -150,8 +147,13 @@ button {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 button:hover {
     background-color: steelblue;
+}
+
+.stingTrackingnumber {
+    color: #0e3557;
 }

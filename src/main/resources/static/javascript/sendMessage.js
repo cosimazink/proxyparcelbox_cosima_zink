@@ -1,7 +1,5 @@
-
-    const ws = new WebSocket("/messages");
+    const ws = new WebSocket("/chat");
     const echo = document.querySelector('.chat-container');
-    const id = document.getElementById('id').textContent.split(': ')[1];
 
     ws.onmessage = function (message) {
         console.log("message: " + message.data)
@@ -11,16 +9,14 @@
             '</div>';
     }
 
-
     function sendMessage() {
         const input = document.querySelector('input[name="message"]');
         const messageText = input.value;
 
-        const messageHtml = '<div class="sent">' +
+        echo.innerHTML += '<div class="sent">' +
             '<p>' + messageText + '</p>' +
             '<span class="timestamp">' + getTimestamp() + '</span>' +
             '</div>';
-        echo.innerHTML += messageHtml;
 
         const id = document.getElementById('id').textContent.split(': ')[1];
 
@@ -42,10 +38,6 @@
         }).catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
-        input.value = '';
-
-        /*const chatContainer = document.querySelector('.chat-container');
-        chatContainer.innerHTML += messageHtml;*/
 
         ws.send(messageText);
 
@@ -53,10 +45,8 @@
     }
 
     function getTimestamp() {
-        //get date chat gpt
         const currentTime = new Date();
         return currentTime.getHours() + ':' + currentTime.getMinutes().toString().padStart(2, '0');
     }
 
     document.getElementById('sendMessage').addEventListener('click', sendMessage);
-
