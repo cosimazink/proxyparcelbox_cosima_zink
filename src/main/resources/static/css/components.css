@@ -1,15 +1,22 @@
 .navigation {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     a {
-        color: var(--color-black);
+        color: white;
         text-decoration: none;
     }
     ul {
         display: flex;
+        align-items: center;
+
         li{
             margin-right: var(--s);
+
+            img{
+                margin-right: var(--s);
+            }
         }
     }
 }
@@ -32,7 +39,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #818181;
 }
 
 .chatAbo {
@@ -64,14 +71,15 @@ form {
 }
 
 .received {
+    color: black;
     background-color: #e0e0e0;
     margin: var(--m);
     border-bottom-left-radius: 0;
 }
 
 .sent {
-    color: white;
-    background-color: #0e3557;
+    color: black;
+    background-color: #76a9e2;
     align-self: flex-end;
     margin: var(--m);
     border-bottom-right-radius: 0;
@@ -112,7 +120,7 @@ form {
 
 .sent::after {
     right: 100%;
-    border-right-color: #0e3557;
+    border-right-color: #76a9e2;
     border-top: 0;
     border-bottom: 0;
     margin-top: -5px;
@@ -135,14 +143,17 @@ form {
     align-items: center;
 }
 
-input[type="text"] {
+input {
+    background-color: #212124;
+    border: 1px solid #666;
+    color: white;
     width: 400px;
     height: 40px;
     margin-bottom: 10px;
 }
 
 button {
-    background-color: cornflowerblue;
+    background-color: #315f8b;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -151,9 +162,9 @@ button {
 }
 
 button:hover {
-    background-color: steelblue;
+    background-color: #25405b;
 }
 
-.stingTrackingnumber {
-    color: #0e3557;
+.stringTrackingnumber {
+    color: #76a9e2;
 }

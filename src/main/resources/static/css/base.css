@@ -3,15 +3,19 @@
 }
 
 html, body{
-    background-color: var(--color-lightest);
+    color: white;
+    background-color: #212124;
     font-family: "source-sans-3", Arial, sans-serif;
     font-size: var(--m);
     font-weight: var(--fw-regular);
 }
 
 header {
+    color: white;
     padding: var(--l);
-    background-color: var(--color-light);
+    padding-bottom: var(--xxl);
+    background-color: #161618;
+    background: linear-gradient(to bottom, #161618 80%, transparent 100%);
 }
 
 footer {
@@ -19,15 +23,19 @@ footer {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: var(--color-dark);
+    background-color: #161618;
     color: white;
     padding: 10px 0;
+
+    p {
+        margin: var(--m);
+    }
 }
 
 main{
     max-width: 80rem;
     margin: var(--m);
-    background-color: var(--color-lightest);
+    background-color: #212124;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,7 +49,7 @@ h1{
 }
 
 h2{
-    margin: var(--l) var(--s) var(--s) var(--s);
+    margin: var(--l) var(--s) var(--s) 0px;
     font-size: var(--l);
 }
 

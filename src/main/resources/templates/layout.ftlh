@@ -16,13 +16,13 @@
     <header>
         <div class="navigation">
             <ul>
-                <li><a href="/">Chat starten</a></li>
+                <li><img src="/images/LogoProxyParcelBox.png" alt="Send" style="height: 50px;"></li>
                 <li><a href="/support">Support</a></li>
                 <li><a href="/überUns">Über uns</a></li>
             </ul>
             <ul>
-                <li><button>Login</button></li>
-                <li><button>Registrierung</button></li>
+                <li><button><a href="/emailCheck">Login</a></button></li>
+                <li><button><a href="/register">Registrierung</a></button></li>
             </ul>
         </div>
     </header>
@@ -32,7 +32,7 @@
     </main>
 
     <footer>
-        <p>Cosima Zink</p>
+        <p>Cosima Hiromi Zink</p>
     </footer>
 
     </body>
