@@ -129,9 +129,17 @@ form {
 .chatBoxFooter {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 10px;
     margin: var(--m);
+
+    .messageInput {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the left */
+        gap: 10px;
+    }
 }
 
 .message {

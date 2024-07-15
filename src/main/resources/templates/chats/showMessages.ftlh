@@ -31,7 +31,10 @@
         </#list>
     </div>
     <div class="chatBoxFooter">
-        <input type="text" name="message" placeholder="Nachricht...">
+        <div class="messageInput">
+            <input type="text" name="message" placeholder="Nachricht...">
+            <input type="text" name="username" placeholder="Username...">
+        </div>
         <button class="message" type="button" onclick="sendMessage()">
             <img src="/images/sendIcon.png" alt="Send" style="width: 25px;">
         </button>

@@ -10,8 +10,8 @@
     }
 
     function sendMessage() {
-        const input = document.querySelector('input[name="message"]');
-        const messageText = input.value;
+        const messageInput = document.querySelector('input[name="message"]');
+        const messageText = messageInput.value;
 
         echo.innerHTML += '<div class="sent">' +
             '<p>' + messageText + '</p>' +
@@ -41,7 +41,7 @@
 
         ws.send(messageText);
 
-        input.value = '';
+        messageInput.value = '';
     }
 
     function getTimestamp() {
