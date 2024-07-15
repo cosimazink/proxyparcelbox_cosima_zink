@@ -41,7 +41,7 @@ class UsersController (
     }
 
     @PostMapping("/register")
-    fun createUser(@Valid userDTO: UserDTO, model: Model): String {
+    fun createUser(userDTO: UserDTO, model: Model): String {
         var user: User = User()
         user.email = userDTO.email
         user.name = userDTO.name
@@ -51,5 +51,11 @@ class UsersController (
         usersService.save(user)
 
         return "redirect:/login"
+    }
+
+    @PostMapping("/login")
+    fun login(userDTO: UserDTO, model: Model): String {
+        TODO()
+        return "redirect:/"
     }
 }
