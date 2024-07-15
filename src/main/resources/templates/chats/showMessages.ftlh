@@ -33,7 +33,7 @@
     <div class="chatBoxFooter">
         <div class="messageInput">
             <input type="text" name="message" placeholder="Nachricht...">
-            <input type="text" name="username" placeholder="Username...">
+            <input type="email" name="userEmail" placeholder="Email...">
         </div>
         <button class="message" type="button" onclick="sendMessage()">
             <img src="/images/sendIcon.png" alt="Send" style="width: 25px;">

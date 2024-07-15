@@ -7,6 +7,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler
 import de.thk.gm.fddw.proxyparcelbox.models.Message
 import de.thk.gm.fddw.proxyparcelbox.services.ChatsService
 import de.thk.gm.fddw.proxyparcelbox.services.MessagesService
+import jakarta.validation.constraints.Email
 import java.util.*
 import kotlin.collections.ArrayList
 

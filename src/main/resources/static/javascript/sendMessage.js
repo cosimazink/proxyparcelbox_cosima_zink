@@ -10,8 +10,10 @@
     }
 
     function sendMessage() {
-        const messageInput = document.querySelector('input[name="message"]');
-        const messageText = messageInput.value;
+        const input = document.querySelector('input[name="message"]');
+        const inputEmail = document.querySelector('input[name="userEmail"]');
+        const messageText = input.value;
+        const emailText = inputEmail.value;
 
         echo.innerHTML += '<div class="sent">' +
             '<p>' + messageText + '</p>' +
@@ -22,7 +24,8 @@
 
         const message = {
             sender: 'User',
-            text: messageText
+            text: messageText,
+            email: emailText
         };
 
         fetch('/messages/' + id, {
@@ -41,7 +44,7 @@
 
         ws.send(messageText);
 
-        messageInput.value = '';
+        input.value = '';
     }
 
     function getTimestamp() {

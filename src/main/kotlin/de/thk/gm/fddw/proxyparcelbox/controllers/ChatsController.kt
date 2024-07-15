@@ -6,6 +6,7 @@ import de.thk.gm.fddw.proxyparcelbox.models.Message
 import de.thk.gm.fddw.proxyparcelbox.services.ChatsService
 import de.thk.gm.fddw.proxyparcelbox.services.MessagesService
 import de.thk.gm.fddw.proxyparcelbox.services.MessagesServiceImpl
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -21,9 +22,15 @@ class ChatsController(
     private val messagesServiceImpl: MessagesServiceImpl
 ) {
 
+    //entfernen
+    companion object{
+        private val logger = LoggerFactory.getLogger(ChatsController::class.java)
+    }
+
     data class ChatRequest(
         var trackingNumber: String,
-        var email: String
+        var email: String,
+        var emailUser: String
     )
 
     @GetMapping("/")
@@ -45,6 +52,12 @@ class ChatsController(
 
         if(chat == null) throw ResponseStatusException(HttpStatus.NOT_FOUND)
         val messages = messagesService.getMessagesByChatRoom(chat)
+
+        //entfernen
+        messages.forEach { message ->
+            logger.info("Nachricht: ${message.text}, Sender: ${message.sender}, E-Mail: ${message.email}, Gesendet am: ${message.createdAt}")
+        }
+
         model.addAttribute("messages", messages)
         return "chats/showMessages"
     }
@@ -67,7 +80,7 @@ class ChatsController(
             throw ResponseStatusException(HttpStatus.NOT_FOUND);
         } else {
             message.chat = chat
-            messagesServiceImpl.createAndSaveMessage(trackingNumber, message.sender, message.text)
+            messagesServiceImpl.createAndSaveMessage(trackingNumber, message.sender, message.text, message.email)
             ResponseEntity.ok().build()
         }
     }
@@ -76,6 +89,7 @@ class ChatsController(
     fun createChat(@ModelAttribute chatRequest: ChatRequest, model: Model) : String {
         val chat = Chat(chatRequest.trackingNumber)
         chat.email = chatRequest.email
+        chat.emailUser = chatRequest.emailUser
 
         chatsRestController.saveChat(chat)
 
