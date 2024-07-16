@@ -97,6 +97,13 @@ class ChatsController(
         }
     }
 
+    @GetMapping("/chats/subscribers/{trackingNumber}")
+    @ResponseBody
+    fun getChatSubscribers(@PathVariable trackingNumber: String): ResponseEntity<List<String>> {
+        val subscribers = chatsService.getSubscribers(trackingNumber)
+        return ResponseEntity.ok(subscribers)
+    }
+
     @PostMapping("/messages/{trackingnumber}")
     fun saveMessages(@PathVariable("trackingnumber") trackingNumber: String, @RequestBody message: Message): ResponseEntity<Message> {
         val chat = chatsService.findById(trackingNumber)

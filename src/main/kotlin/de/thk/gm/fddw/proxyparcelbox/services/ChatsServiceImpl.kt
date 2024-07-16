@@ -30,4 +30,9 @@ class ChatsServiceImpl (private val chatsRepository: ChatsRepository) : ChatsSer
     override fun subscribed(id: String, email: String): Boolean {
         return chatsRepository.findByTrackingnumber(id)?.subscribedChat?.contains(email) ?: false
     }
+
+    override fun getSubscribers(id: String): List<String> {
+                val chat = chatsRepository.findByTrackingnumber(id)
+                return chat?.subscribedChat?.toList() ?: emptyList()
+    }
 }

@@ -9,7 +9,7 @@
             '</div>';
     }
 
-    function checkSubscriptionAndNotify(email, message, id) {
+    /*function checkSubscriptionAndNotify(email, message, id) {
         fetch('/chats/checkSubscription', {
             method: 'POST',
             headers: {
@@ -38,6 +38,32 @@
                 } else {
                     console.log("E-Mail hat den Chat nicht abonniert.");
                 }
+            })
+            .catch(error => console.error('Error:', error));
+    }*/
+
+    function notifySubscribers(message, id) {
+        fetch(`/chats/subscribers/${id}`)
+            .then(response => response.json())
+            .then(subscribers => {
+                subscribers.forEach(email => {
+                    const url = `/emails/notify/${id}`;
+                    const params = new URLSearchParams({ email, message });
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: params
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('E-Mail konnte nicht gesendet werden');
+                            }
+                            console.log("E-Mail erfolgreich an " + email + " gesendet");
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
             })
             .catch(error => console.error('Error:', error));
     }
@@ -71,7 +97,7 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            checkSubscriptionAndNotify(emailText, messageText, id);
+            notifySubscribers(messageText, id);
         }).catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
