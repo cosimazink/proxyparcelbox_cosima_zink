@@ -28,7 +28,7 @@ class UsersServiceImpl (private val usersRepository: UsersRepository) : UsersSer
     }
 
     override fun save(user: User) {
-        logger.info("User saved: ${user.email} User Name: ${user.name}")
+        logger.info("User saved: ${user.email} User Name: ${user.id}")
         usersRepository.save(user)
     }
 

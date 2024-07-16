@@ -9,13 +9,14 @@
 </head>
 <#import "../layout.ftlh" as layout>
 <@layout.layout>
-<body>
-<p><b>Sendungsnummer:</b> ${chat.trackingnumber}</p>
-<p><b>Email:</b> ${chat.email}</p>
-<a href="http://localhost:8080/chats/${chat.id}">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={localhost:8080/chats/${chat.id}" alt="QR Code" width="200" height="200">
-</a>
-<a href="http://localhost:8080/messages/${chat.id}">http://localhost:8080/chats/${chat.id}</a>
-</body>
+    <body>
+        <p><b>Sendungsnummer:</b> ${chat.trackingnumber}</p>
+        <p><b>Email:</b> ${chat.email}</p>
+        <a href="http://localhost:8080/chats/${chat.id}">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={localhost:8080/chats/${chat.id}"
+                alt="QR Code" width="200" height="200">
+        </a>
+        <a href="http://localhost:8080/messages/${chat.id}">http://localhost:8080/chats/${chat.id}</a>
+    </body>
 </@layout.layout>
 </html>

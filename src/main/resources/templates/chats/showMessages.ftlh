@@ -12,7 +12,7 @@
     <body>
     <div class="chatAbo">
         <h2 class="stringTrackingnumber" id="id">Chat Sendungsnummer: ${chat.id}</h2>
-        <button>Chat abonnieren</button>
+        <button><a href="/emails/subscribe/${chat.id}">Chat abonnieren</a></button>
     </div>
     <div class="chat-container">
         <div id="messages-container"></div>

@@ -9,6 +9,39 @@
             '</div>';
     }
 
+    function checkSubscriptionAndNotify(email, message, id) {
+        fetch('/chats/checkSubscription', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: email, trackingNumber: id })
+        })
+            .then(response => response.json())
+            .then(isSubscribed => {
+                if (isSubscribed) {
+                    // Aufruf des Endpunkts zum Senden der E-Mail-Benachrichtigung
+                    fetch(`/emails/notify/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('E-Mail konnte nicht gesendet werden');
+                            }
+                            console.log("E-Mail erfolgreich gesendet");
+                        })
+                        .catch(error => console.error('Error:', error));
+                } else {
+                    console.log("E-Mail hat den Chat nicht abonniert.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
     function sendMessage() {
         const input = document.querySelector('input[name="message"]');
         const inputEmail = document.querySelector('input[name="userEmail"]');
@@ -38,6 +71,7 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            checkSubscriptionAndNotify(emailText, messageText, id);
         }).catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });

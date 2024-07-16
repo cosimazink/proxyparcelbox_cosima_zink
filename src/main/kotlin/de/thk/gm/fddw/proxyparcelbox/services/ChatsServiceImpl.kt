@@ -26,4 +26,8 @@ class ChatsServiceImpl (private val chatsRepository: ChatsRepository) : ChatsSer
     override fun delete(chat: Chat) {
         chatsRepository.delete(chat)
     }
+
+    override fun subscribed(id: String, email: String): Boolean {
+        return chatsRepository.findByTrackingnumber(id)?.subscribedChat?.contains(email) ?: false
+    }
 }
