@@ -21,7 +21,7 @@
                 <li><a href="/überUns">Über uns</a></li>
             </ul>
             <ul>
-                <li><button><a href="/emailCheck">Login</a></button></li>
+                <li><button><a href="/login">Login</a></button></li>
                 <li><button><a href="/register">Registrierung</a></button></li>
             </ul>
         </div>

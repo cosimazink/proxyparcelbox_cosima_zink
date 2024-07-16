@@ -13,7 +13,6 @@ class User {
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     var id: UUID = UUID.randomUUID()
     var email: String = ""
-    var password: String = ""
     var name: String = ""
 
     override fun toString(): String {

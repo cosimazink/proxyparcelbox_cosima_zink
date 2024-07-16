@@ -13,8 +13,8 @@
     <div class="login">
         <h2>Login</h2>
         <form action="/login" method="post">
-            <input type="text" name="email" placeholder="Email-Adresse">
-            <input type="password" name="password" placeholder="Passwort">
+            <input type="text" name="name" placeholder="Username">
+            <input type="email" name="email" placeholder="Email-Adresse">
             <button type="submit">Login</button>
         </form>
     </div>
