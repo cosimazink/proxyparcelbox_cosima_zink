@@ -9,60 +9,31 @@
             '</div>';
     }
 
-    /*function checkSubscriptionAndNotify(email, message, id) {
-        fetch('/chats/checkSubscription', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email: email, trackingNumber: id })
-        })
-            .then(response => response.json())
-            .then(isSubscribed => {
-                if (isSubscribed) {
-                    // Aufruf des Endpunkts zum Senden der E-Mail-Benachrichtigung
-                    fetch(`/emails/notify/${id}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `email=${encodeURIComponent(email)}&message=${encodeURIComponent(message)}`
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('E-Mail konnte nicht gesendet werden');
-                            }
-                            console.log("E-Mail erfolgreich gesendet");
-                        })
-                        .catch(error => console.error('Error:', error));
-                } else {
-                    console.log("E-Mail hat den Chat nicht abonniert.");
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }*/
-
-    function notifySubscribers(message, id) {
+    function notifySubscribers(message, id, emailMessage) {
         fetch(`/chats/subscribers/${id}`)
             .then(response => response.json())
             .then(subscribers => {
                 subscribers.forEach(email => {
-                    const url = `/emails/notify/${id}`;
-                    const params = new URLSearchParams({ email, message });
-                    fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: params
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('E-Mail konnte nicht gesendet werden');
-                            }
-                            console.log("E-Mail erfolgreich an " + email + " gesendet");
+                    if (email === emailMessage) {
+                        console.log("E-Mail wird nicht an " + email + " gesendet")
+                    } else {
+                        const url = `/emails/notify/${id}`;
+                        const params = new URLSearchParams({email, message});
+                        fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: params
                         })
-                        .catch(error => console.error('Error:', error));
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('E-Mail konnte nicht gesendet werden');
+                                }
+                                console.log("E-Mail erfolgreich an " + email + " gesendet");
+                            })
+                            .catch(error => console.error('Error:', error));
+                    }
                 });
             })
             .catch(error => console.error('Error:', error));
@@ -97,7 +68,7 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            notifySubscribers(messageText, id);
+            notifySubscribers(messageText, id, emailText);
         }).catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });

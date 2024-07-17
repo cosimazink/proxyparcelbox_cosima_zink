@@ -67,25 +67,6 @@ class ChatsController(
         return "chats/showMessages"
     }
 
-    /*@GetMapping("/messages/{trackingnumber}/{userId}")
-    fun getChatByTrackingNumber1(@PathVariable("trackingnumber") trackingNumber: String, @PathVariable("userId") userId: UUID, model: Model): String {
-        val chat: Chat? = chatsService.findById(trackingNumber)
-        model.addAttribute("chat", chat)
-        val user: User? = usersServiceImpl.findById(userId)
-        model.addAttribute("user", user)
-
-        if(chat == null) throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        val messages = messagesService.getMessagesByChatRoom(chat)
-
-        //entfernen
-        messages.forEach { message ->
-            logger.info("Nachricht: ${message.text}, Sender: ${message.sender}, E-Mail: ${message.email}, Gesendet am: ${message.createdAt}")
-        }
-
-        model.addAttribute("messages", messages)
-        return "chats/showMessages"
-    }*/
-
     @GetMapping("/messages/{trackingnumber}/chat")
     @ResponseBody
     fun getChatMessages(@PathVariable("trackingnumber") trackingNumber: String): List<Message> {
@@ -116,18 +97,6 @@ class ChatsController(
         }
     }
 
-    /*@PostMapping("/messages/{trackingnumber}/{userId}")
-    fun saveMessages2(@PathVariable("trackingnumber") trackingNumber: String, @PathVariable("userId") userId: UUID, @RequestBody message: Message): ResponseEntity<Message> {
-        val chat = chatsService.findById(trackingNumber)
-        val user = usersServiceImpl.findById(userId)
-        return if (chat == null) {
-            throw ResponseStatusException(HttpStatus.NOT_FOUND);
-        } else {
-            message.chat = chat
-            messagesServiceImpl.createAndSaveMessage(trackingNumber, message.sender, message.text, message.email)
-            ResponseEntity.ok().build()
-        }
-    }*/
 
     @PostMapping("/chats")
     fun createChat(@ModelAttribute chatRequest: ChatRequest, model: Model) : String {
@@ -138,17 +107,5 @@ class ChatsController(
         chatsRestController.saveChat(chat)
 
         return "redirect:/chats/${chat.id}"
-    }
-
-    data class SubscriptionCheckRequest(
-        val email: String,
-        val trackingNumber: String
-    )
-
-    @PostMapping("/chats/checkSubscription")
-    @ResponseBody
-    fun checkEmailSubscription(@RequestBody subscriptionCheckRequest: SubscriptionCheckRequest): ResponseEntity<Boolean> {
-        val isSubscribed = chatsService.subscribed(subscriptionCheckRequest.trackingNumber, subscriptionCheckRequest.email)
-        return ResponseEntity.ok(isSubscribed)
     }
 }

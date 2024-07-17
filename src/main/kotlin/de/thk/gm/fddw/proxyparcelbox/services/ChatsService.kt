@@ -10,6 +10,5 @@ interface ChatsService {
     fun findByEmail(email: String): Chat?
     fun save(chat: Chat)
     fun delete(chat: Chat)
-    fun subscribed(id: String, email: String): Boolean
     fun getSubscribers(id: String): List<String>
 }
