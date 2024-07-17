@@ -11,12 +11,7 @@ import org.springframework.stereotype.Service
 @Service
 class MessagesServiceImpl (private val messagesRepository: MessagesRepository, private val chatsRepository: ChatsRepository) : MessagesService{
 
-    companion object{
-        private val logger = LoggerFactory.getLogger(ChatsController::class.java)
-    }
-
     override fun save(message: Message): Message {
-        logger.info("Nachricht: ${message.text}, EmailUser: ${message.chat?.emailUser}")
         return messagesRepository.save(message)
     }
 

@@ -24,11 +24,6 @@ class ChatsController(
     private val usersServiceImpl: UsersServiceImpl
 ) {
 
-    //entfernen
-    companion object{
-        private val logger = LoggerFactory.getLogger(ChatsController::class.java)
-    }
-
     data class ChatRequest(
         var trackingNumber: String,
         var email: String,
@@ -57,11 +52,6 @@ class ChatsController(
 
         if(chat == null) throw ResponseStatusException(HttpStatus.NOT_FOUND)
         val messages = messagesService.getMessagesByChatRoom(chat)
-
-        //entfernen
-        messages.forEach { message ->
-            logger.info("Nachricht: ${message.text}, Sender: ${message.sender}, E-Mail: ${message.email}, Gesendet am: ${message.createdAt}")
-        }
 
         model.addAttribute("messages", messages)
         return "chats/showMessages"

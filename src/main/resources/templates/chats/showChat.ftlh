@@ -17,6 +17,7 @@
                 alt="QR Code" width="200" height="200">
         </a>
         <a href="http://localhost:8080/messages/${chat.id}">http://localhost:8080/chats/${chat.id}</a>
+        <a href="http://mivs.gm.fh-koeln.de:8080/messages/${chat.id}">http://localhost:8080/chats/${chat.id}</a>
     </body>
 </@layout.layout>
 </html>
