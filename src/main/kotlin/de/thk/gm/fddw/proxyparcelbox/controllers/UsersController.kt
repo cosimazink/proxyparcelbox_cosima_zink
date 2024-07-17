@@ -7,16 +7,13 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.PostMapping
+import de.thk.gm.fddw.proxyparcelbox.dtos.UserDTO
+import jakarta.validation.Valid
 
 @Controller
 class UsersController (
     private val usersService: UsersService
 ) {
-
-    data class UserRequest(
-        var email: String,
-        var name: String
-    )
 
     @GetMapping("/login")
     fun login(): String {
@@ -24,10 +21,10 @@ class UsersController (
     }
 
     @PostMapping("/login")
-    fun createUser(@ModelAttribute userRequest : UserRequest, model: Model): String {
+    fun createUser(@Valid userDTO: UserDTO): String {
         var user: User = User()
-        user.email = userRequest.email
-        user.name = userRequest.name
+        user.email = userDTO.email
+        user.name = userDTO.name
         usersService.save(user)
         return "redirect:/"
     }

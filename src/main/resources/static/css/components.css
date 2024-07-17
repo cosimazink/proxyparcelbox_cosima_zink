@@ -49,6 +49,11 @@ form {
     align-items: center;
     border-bottom: 1px solid #ccc;
     justify-content: space-between;
+
+    button a {
+        color: white;
+        text-decoration: none;
+    }
 }
 
 .chatAbo button {
