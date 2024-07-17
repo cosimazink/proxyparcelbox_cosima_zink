@@ -1,6 +1,7 @@
     const ws = new WebSocket("/chat");
     const echo = document.querySelector('.chat-container');
 
+    // received messages
     ws.onmessage = function (message) {
         console.log("message: " + message.data)
         echo.innerHTML += '<div class="received">' +
@@ -9,11 +10,13 @@
             '</div>';
     }
 
+    // sending emails to subscribers
     function notifySubscribers(message, id, emailMessage) {
         fetch(`/chats/subscribers/${id}`)
             .then(response => response.json())
             .then(subscribers => {
                 subscribers.forEach(email => {
+                    // check if email is the same as the email of the user who sent the message
                     if (email === emailMessage) {
                         console.log("E-Mail wird nicht an " + email + " gesendet")
                     } else {
@@ -39,6 +42,7 @@
             .catch(error => console.error('Error:', error));
     }
 
+    // sending messages
     function sendMessage() {
         const input = document.querySelector('input[name="message"]');
         const inputEmail = document.querySelector('input[name="userEmail"]');

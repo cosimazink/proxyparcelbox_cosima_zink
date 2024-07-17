@@ -22,6 +22,7 @@ class EmailsController (val chatsService: ChatsService, val emailService: EmailS
         return "emails/sendemailform"
     }
 
+    // Subscribe Chat
     @GetMapping("/emails/subscribe/{trackingnumber}")
     fun subscribeEmail(@PathVariable trackingnumber : String, model: Model) : String {
         val chat = chatsService.findById(trackingnumber)
@@ -29,6 +30,13 @@ class EmailsController (val chatsService: ChatsService, val emailService: EmailS
         return "emails/subscribe"
     }
 
+    @PostMapping("/emails")
+    fun sendEmail(receiver: String, subject: String, message: String) : String {
+        emailService.sendSimpleMessage(receiver, subject, message)
+        return "redirect:/emails/sendemailform"
+    }
+
+    // add email to subscribedChat-List and send confirmation email
     @PostMapping("/emails/subscribe/{trackingnumber}")
     fun subscribe(@PathVariable trackingnumber : String, receiver: String) : String {
         val chat = chatsService.findById(trackingnumber)
@@ -42,12 +50,7 @@ class EmailsController (val chatsService: ChatsService, val emailService: EmailS
         return "redirect:/messages/{trackingnumber}"
     }
 
-    @PostMapping("/emails")
-    fun sendEmail(receiver: String, subject: String, message: String) : String {
-        emailService.sendSimpleMessage(receiver, subject, message)
-        return "redirect:/emails/sendemailform"
-    }
-
+    //send email if someone sends a message to a subscribed chat
     @PostMapping("/emails/notify/{trackingnumber}")
     @ResponseBody
     fun notifySubscriber(@PathVariable trackingnumber : String, @RequestParam email: String, @RequestParam message: String): ResponseEntity<String> {

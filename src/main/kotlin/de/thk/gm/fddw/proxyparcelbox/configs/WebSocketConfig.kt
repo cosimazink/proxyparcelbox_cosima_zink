@@ -9,6 +9,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
+// Communication between the server and the client
 @Configuration
 @EnableWebSocket
 class WebSocketConfig (val chatsService: ChatsService, val messagesService: MessagesService ) : WebSocketConfigurer {

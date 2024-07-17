@@ -181,3 +181,51 @@ button:hover {
 .stringTrackingnumber {
     color: #76a9e2;
 }
+
+.aboutUs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    p {
+        margin-bottom: var(--s);
+    }
+
+    h3{
+        color: #76a9e2;
+    }
+}
+
+.support {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    p {
+        margin-bottom: var(--s);
+    }
+
+    h3{
+        color: #76a9e2;
+    }
+}
+
+.qrImg {
+    filter: invert(100%);
+}
+
+.question {
+    font-weight: bold;
+}
+
+.faq {
+    div {
+        margin-bottom: var(--l);
+
+        p{
+            margin-bottom: 3px;
+        }
+    }
+}

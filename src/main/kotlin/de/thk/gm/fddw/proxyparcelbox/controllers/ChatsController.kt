@@ -5,7 +5,6 @@ import de.thk.gm.fddw.proxyparcelbox.models.Chat
 import de.thk.gm.fddw.proxyparcelbox.models.Message
 import de.thk.gm.fddw.proxyparcelbox.models.User
 import de.thk.gm.fddw.proxyparcelbox.services.*
-import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -21,9 +20,9 @@ class ChatsController(
     private val messagesService: MessagesService,
     private val messagesServiceImpl: MessagesServiceImpl,
     private val usersService: UsersService,
-    private val usersServiceImpl: UsersServiceImpl
 ) {
 
+    // DTO for creating a chat
     data class ChatRequest(
         var trackingNumber: String,
         var email: String,
@@ -36,6 +35,7 @@ class ChatsController(
         return "index"
     }
 
+    // QR code for chat
     @GetMapping("/chats/{id}")
     fun getChatQR(@PathVariable("id") trackingNumber: String, model: Model, redirectAttributes: RedirectAttributes): String {
         val chat: Chat? = chatsService.findById(trackingNumber)
@@ -43,6 +43,7 @@ class ChatsController(
         return "chats/showChat"
     }
 
+    // Chat page
    @GetMapping("/messages/{trackingnumber}")
     fun getChatByTrackingNumber(@PathVariable("trackingnumber") trackingNumber: String, model: Model): String {
         val chat: Chat? = chatsService.findById(trackingNumber)
@@ -51,12 +52,23 @@ class ChatsController(
         model.addAttribute("user", user)
 
         if(chat == null) throw ResponseStatusException(HttpStatus.NOT_FOUND)
-        val messages = messagesService.getMessagesByChatRoom(chat)
+        val messages = messagesService.getMessagesByChatRoom(chat)  //List of messages
 
         model.addAttribute("messages", messages)
         return "chats/showMessages"
     }
 
+    @GetMapping("/aboutUs")
+    fun getAboutUsPage(model: Model): String {
+        return "headerLinks/aboutUs"
+    }
+
+    @GetMapping("/support")
+    fun getSupportPage(model: Model): String {
+        return "headerLinks/support"
+    }
+
+    // Return List of messages
     @GetMapping("/messages/{trackingnumber}/chat")
     @ResponseBody
     fun getChatMessages(@PathVariable("trackingnumber") trackingNumber: String): List<Message> {
@@ -68,6 +80,7 @@ class ChatsController(
         }
     }
 
+    // Return List of subscribers
     @GetMapping("/chats/subscribers/{trackingNumber}")
     @ResponseBody
     fun getChatSubscribers(@PathVariable trackingNumber: String): ResponseEntity<List<String>> {
@@ -75,6 +88,7 @@ class ChatsController(
         return ResponseEntity.ok(subscribers)
     }
 
+    // Save message
     @PostMapping("/messages/{trackingnumber}")
     fun saveMessages(@PathVariable("trackingnumber") trackingNumber: String, @RequestBody message: Message): ResponseEntity<Message> {
         val chat = chatsService.findById(trackingNumber)
@@ -87,7 +101,7 @@ class ChatsController(
         }
     }
 
-
+    // Create chat
     @PostMapping("/chats")
     fun createChat(@ModelAttribute chatRequest: ChatRequest, model: Model) : String {
         val chat = Chat(chatRequest.trackingNumber)

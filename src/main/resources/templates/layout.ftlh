@@ -16,9 +16,9 @@
     <header>
         <div class="navigation">
             <ul>
-                <li><img src="/images/LogoProxyParcelBox.png" alt="Send" style="height: 50px;"></li>
+                <li><a href="/"><img src="/images/LogoProxyParcelBox.png" alt="Send" style="height: 50px;"></a></li>
                 <li><a href="/support">Support</a></li>
-                <li><a href="/überUns">Über uns</a></li>
+                <li><a href="/aboutUs">Über Uns</a></li>
             </ul>
             <ul>
                 <li><button><a href="/login">Login</a></button></li>
