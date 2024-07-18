@@ -10,14 +10,19 @@
 <#import "../layout.ftlh" as layout>
 <@layout.layout>
     <body>
-        <p><b>Sendungsnummer:</b> ${chat.trackingnumber}</p>
-        <p><b>Email:</b> ${chat.email}</p>
+    <div class="qrInfo">
+        <h3>Links für Chat:</h3>
+        <p>Sendungsnummer: ${chat.trackingnumber}</p>
+        <p>Email: ${chat.email}</p>
         <a href="http://localhost:8080/chats/${chat.id}">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={localhost:8080/chats/${chat.id}"
                 class="qrImg" alt="QR Code" width="200" height="200">
         </a>
+        <p>Localhost:</p>
         <a href="http://localhost:8080/messages/${chat.id}">http://localhost:8080/messages/${chat.id}</a>
+        <p>Server:</p>
         <a href="http://mivs15.gm.fh-koeln.de:8080/messages/${chat.id}">http://mivs15.gm.fh-koeln.de:8080/messages/${chat.id}</a>
+    </div>
     </body>
 </@layout.layout>
 </html>

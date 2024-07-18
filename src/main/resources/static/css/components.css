@@ -200,12 +200,21 @@ button:hover {
 .support {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 20px;
 
     p {
         margin-bottom: var(--s);
     }
+
+    h3{
+        color: #76a9e2;
+    }
+}
+
+.qrInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 
     h3{
         color: #76a9e2;
