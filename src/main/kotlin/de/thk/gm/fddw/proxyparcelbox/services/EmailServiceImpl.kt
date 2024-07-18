@@ -23,7 +23,7 @@ class EmailServiceImpl (private var emailSender: JavaMailSender) : EmailService 
     override fun sendConfirmationEmail(email: String, trackingnumber: String) {
         val mail : SimpleMailMessage = SimpleMailMessage()
         mail.subject = "Abo-Bestätigung"
-        mail.text = "Sie haben den Chat mit der Sendungsnummer ${trackingnumber}. erfolgreich abonniert."
+        mail.text = "Sie haben den Chat mit der Sendungsnummer ${trackingnumber} erfolgreich abonniert."
         mail.setTo(email)
         mail.from = sender
         emailSender.send(mail)
